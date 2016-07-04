@@ -14,9 +14,15 @@ kmeans.matrix <- stats::kmeans
 kmeans.default <- stats::kmeans
 
 #' K-Means Clustering.
-#'
+#	'
 #' \code{kmeans} performs k-means clustering on FLTable objects.
 #'
+#' The DB Lytix function called is FLKMeans.K-Means clusters the training data. 
+#' The relationship of observations to clusters has hard edges. In general, k-means has 
+#' two steps: assigning data points to the nearest cluster and then moving
+#' each cluster’s centroid to the center of the members of the cluster.
+#'
+#' @seealso \code{\link[stats]{kmeans}} for R reference function implementation.
 #' @method kmeans FLTable
 #' @param x an object of class FLTable, wide or deep
 #' @param centers the number of clusters
