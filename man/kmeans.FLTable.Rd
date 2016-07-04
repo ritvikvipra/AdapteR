@@ -2,7 +2,8 @@
 % Please edit documentation in R/FLKMeans.R
 \name{kmeans.FLTable}
 \alias{kmeans.FLTable}
-\title{K-Means Clustering.}
+\title{K-Means Clustering.
+\code{kmeans} performs k-means clustering on FLTable objects.}
 \usage{
 \method{kmeans}{FLTable}(x, centers, iter.max = 10, nstart = 1,
   excludeCols = as.character(c()), classSpec = list(),
@@ -29,7 +30,10 @@ from \code{kmeans} in stats package. The mapping table can be viewed
 using \code{object$mapping} if input is wide table.
 }
 \description{
-\code{kmeans} performs k-means clustering on FLTable objects.
+The DB Lytix function called is FLKMeans.K-Means clusters the training data. 
+The relationship of observations to clusters has hard edges. In general, k-means has 
+two steps: assigning data points to the nearest cluster and then moving
+each cluster’s centroid to the center of the members of the cluster.
 }
 \section{Constraints}{
 
@@ -48,5 +52,8 @@ because categorical variable is split into binary numerical variables.
 The clusters may not be well-defined as is observed in the case below:-
 kmeansobjectnew <- kmeans(widetable,3,20,1,"Rings,SEX",list("DummyCat(D)","SEX(M)"))
 plot(kmeansobjectnew)
+}
+\seealso{
+\code{\link[stats]{kmeans}} for R reference function implementation.
 }
 

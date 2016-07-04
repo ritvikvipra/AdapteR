@@ -14,9 +14,10 @@
 \arguments{
 \item{x}{an object of class FLTable, can be wide or deep table}
 
-\item{k}{the number of clusters}
+\item{k}{the number of clusters. t is required that 0 < k < n/2 where n is
+the number of observations.}
 
-\item{diss}{logical if \code{x} is dissimilarity matrix.
+\item{diss}{logical TRUE if \code{x} is dissimilarity matrix.
 currently not used.}
 
 \item{memb.exp}{degree of fuzziness or membership coefficient}
@@ -81,5 +82,8 @@ The clusters may not be well-defined as is observed in the case below:-
 widetable  <- FLTable( "FL_DEMO", "iris", "rownames")
 fannyobjectnew <- fanny(widetable,3,classSpec=list("Species(setosa)"))
 plot(fannyobjectnew)
+}
+\seealso{
+\code{\link[cluster]{fanny}} for R function reference implementation.
 }
 

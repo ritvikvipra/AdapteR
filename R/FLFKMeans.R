@@ -1,16 +1,23 @@
 #' @include FLMatrix.R
 NULL
 
-
+## move to file FLFKMeans.R
 #' An S4 class to represent FLFKMeans
 #'
-#' @slot centers A numeric vector containing the number of clusters, say k
-#' @slot AnalysisID A character output used to retrieve the results of analysis
-#' @slot connection ODBC connectivity for R
-#' @slot table FLTable object given as input on which analysis is performed
+#' @slot centers A numeric vector containing the number of clusters, say k.
+#' @slot AnalysisID A character output used to retrieve the results of analysis.
+#' @slot connection ODBC connectivity for R.
+#' @slot table FLTable object given as input on which analysis is performed.
+#' @slot diss logical TRUE if dissimilarity matrix is supplied to \code{fanny}
 #' @slot resultsfetched A logical vector describing what components are fetched
 #' @slot results A list of all fetched components
-#' @slot deeptablename A character vector containing a deeptable(either conversion from a widetable or input deeptable)
+#' @slot deeptablename A character vector containing a deeptable(either conversion from a 
+#' widetable or input deeptable).
+#' @slot temptables A list of temporary table names used across the results
+#' @slot mapTable A character string name for the mapping table in database if input is wide-table.
+#' @slot memb.exp A number r strictly larger than 1 specifying the membership exponent 
+#' used in the fit criterion.Default: 2 which is hardwired inside FANNY.
+#' @slot maxit maximal number of iterations for the FANNY algorithm.
 #' @method cluster FLKMeans
 #' @param object retrieves the cluster vector
 #' @method centers FLKMeans
@@ -55,14 +62,17 @@ fanny.matrix <- cluster::fanny
 #' @export
 fanny.default <- cluster::fanny
 
+## move to file fanny.R
 #' FuzzyKMeans Clustering.
 #'
 #' \code{fanny} performs fuzzy analysis on FLTable objects.
 #'
+#' @seealso \code{\link[cluster]{fanny}} for R function reference implementation.
 #' @method fanny FLTable
 #' @param x an object of class FLTable, can be wide or deep table
-#' @param k the number of clusters
-#' @param diss logical if \code{x} is dissimilarity matrix.
+#' @param k the number of clusters. t is required that 0 < k < n/2 where n is
+#' the number of observations.
+#' @param diss logical TRUE if \code{x} is dissimilarity matrix.
 #' currently not used.
 #' @param memb.exp degree of fuzziness or membership coefficient
 #' @param metric only "euclidean" distance supported currently
@@ -352,7 +362,7 @@ fanny.FLTable <- function(x,
 	else stop(property," is not a valid property")
 }
 
-
+## move to file FLFKMeans.R
 clustering.FLFKMeans <- function(object)
 {
 	if(!is.null(object@results[["clustering"]]))
@@ -394,7 +404,7 @@ clustering.FLFKMeans <- function(object)
 	}
 }
 
-
+## move to file FLFKMeans.R
 membership.FLFKMeans<-function(object)
 {
 	if(!is.null(object@results[["membership"]]))
@@ -441,7 +451,7 @@ membership.FLFKMeans<-function(object)
 	}
 }
 
-
+## move to file FLFKMeans.R
 coeff.FLFKMeans<-function(object){
 	if(!is.null(object@results[["coeff"]]))
 	return(object@results[["coeff"]])
@@ -469,7 +479,7 @@ coeff.FLFKMeans<-function(object){
 	}
 }
 
-
+## move to file FLFKMeans.R
 objective.FLFKMeans <- function(object){
 	if(!is.null(object@results[["objective"]]))
 	return(object@results[["objective"]])
@@ -512,7 +522,7 @@ objective.FLFKMeans <- function(object){
 	
 }
 
-
+## move to file FLFKMeans.R
 k.crisp.FLFKMeans<-function(object){
 	if(!is.null(object@results[["k.crisp"]]))
 	return(object@results[["k.crisp"]])
@@ -542,7 +552,7 @@ k.crisp.FLFKMeans<-function(object){
 	}
 }
 ## Number of iterations to convergence is not avalilable from DBLytix
-
+## move to file FLFKMeans.R
 convergence.FLFKMeans <- function(object){
 	if(!is.null(object@results[["convergence"]]))
 	return(object@results[["convergence"]])
@@ -556,7 +566,7 @@ convergence.FLFKMeans <- function(object){
 	}
 }
 
-
+## move to file FLFKMeans.R
 silinfo.FLFKMeans <- function(object){
 	if(!is.null(object@results[["silinfo"]]))
 	return(object@results[["silinfo"]])
@@ -753,7 +763,7 @@ silinfo.FLFKMeans <- function(object){
 	}
 }
 
-
+## move to file FLFKMeans.R
 call.FLFKMeans<-function(object)
 {
 	if(!is.null(object@results[["call"]]))
@@ -769,7 +779,7 @@ call.FLFKMeans<-function(object)
 	}
 }
 
-
+## move to file FLFKMeans.R
 #' @export
 print.FLFKMeans <- function(object)
 {
@@ -792,6 +802,7 @@ print.FLFKMeans <- function(object)
 	print(results)
 }
 
+## move to file FLFKMeans.R
 #' @export
 setMethod("show","FLFKMeans",
 			function(object)
@@ -802,6 +813,7 @@ setMethod("show","FLFKMeans",
 			}
 		 )
 
+## move to file FLFKMeans.R
 #' @export
 plot.FLFKMeans <- function(object)
 {
@@ -825,6 +837,7 @@ plot.FLFKMeans <- function(object)
 	plot(results)
 }
 
+## move to file fanny.R
 #' @export
 fanny.FLMatrix <- function(x,
 						k,
